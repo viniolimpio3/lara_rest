@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Sao_Paulo',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'br',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'br',
 
     /*
     |--------------------------------------------------------------------------
@@ -118,7 +118,6 @@ return [
     | will not be safe. Please do this before deploying an application!
     |
     */
-
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',

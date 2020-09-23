@@ -20,13 +20,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::namespace($namespace_controller)->name('api.')->group(function(){
-    Route::prefix('/products')->group(function(){
-        
+    Route::prefix('/products')->group(function(){//RECURSO
+        //ENDPOINTS
         Route::get('/','ProductController@index')->name('products_all');
-
+        Route::get('/{id}', 'ProductController@get')->name('products_id');
+ 
         Route::post('/','ProductController@insert')->name('insert_product');
 
-        Route::get('/{id}', 'ProductController@get')->name('products_id');
+        Route::put('/{id}', 'ProductController@update')->name('update_product');
 
+        Route::delete('/{id}', 'ProductController@delete')->name('delete_product');
     });
 });
