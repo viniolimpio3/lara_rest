@@ -1,10 +1,17 @@
 {
-    "name": "laravel/laravel",
+    "name": "laravel/lara_rest",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "REST architecture with laravel",
     "keywords": [
         "framework",
         "laravel"
+    ],
+    "authors": [
+        {
+            "name": "Vinícius Olímpio",
+            "email": "viniolimpio3@gmail.com",
+            "role": "Dev"
+        }
     ],
     "license": "MIT",
     "require": {

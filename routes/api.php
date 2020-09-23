@@ -15,11 +15,18 @@ use App\Http\Controllers\API\ProductController;
 */
 $namespace_controller = 'App\Http\Controllers\API';
 
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::namespace($namespace_controller)->name('api.')->group(function(){
-    Route::get('/products','ProductController@index')->name('products');
+    Route::prefix('/products')->group(function(){
+        
+        Route::get('/','ProductController@index')->name('products_all');
+
+        Route::post('/','ProductController@insert')->name('insert_product');
+
+        Route::get('/{id}', 'ProductController@get')->name('products_id');
+
+    });
 });
