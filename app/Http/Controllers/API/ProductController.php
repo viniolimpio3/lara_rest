@@ -25,7 +25,7 @@ class ProductController extends Controller{
     }
 
     public function index(){
-        $data['data'] = $this->p->paginate(5);//método útil pacas - traz o próprio link da paginação!! tipo ?page=N
+        $data['data'] = $this->p->paginate(10);//método útil pacas - traz o próprio link da paginação!! tipo ?page=N
         return response()->json($data);        
     }
 
@@ -34,10 +34,11 @@ class ProductController extends Controller{
         return response()->json($data);
     }
 
-    public function insert(Request $req){
+    public function store(Request $req){
         try{
             $data = $req->all();
             $prod = $this->p->create($data);
+
             
             if(!$prod) return response()->json($this->msg->setMessage('err', 'Ocorreu um erro', 400));
 

@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\API\ApiMessage;
 
 class Handler extends ExceptionHandler
 {
@@ -11,6 +13,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
+
     protected $dontReport = [
         //
     ];
@@ -34,4 +37,12 @@ class Handler extends ExceptionHandler
     {
         //
     }
+
+    // protected function unauthenticated($req, AuthenticationException $exception){
+    //     $m = new ApiMessage();
+    //     return response()->json($req);
+    //     if($req->expectsJson()) return response()->json($m->setMessage('error', 'unauthorized', '401'), 401);
+            
+    //     return redirect()->guest(route('api.login_auth'));
+    // }
 }
