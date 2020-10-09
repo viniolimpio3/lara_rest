@@ -4,17 +4,19 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 use Illuminate\Http\JsonResponse;
 use App\API\ApiMessage;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Contracts\Providers\Auth as ProvidersAuth;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth as AuthJWT;
+
 
 class AuthController extends Controller
 {
-    
-
     private $m;
     /**
      * Criando instância do controller
@@ -24,9 +26,9 @@ class AuthController extends Controller
     public function __construct(){
         $this->middleware('auth:api',['except' => 'login']);
         $this->m = new ApiMessage();
+    
     }
  
-
     /**
      * Get a JWT via given credentials.
      *
@@ -34,26 +36,30 @@ class AuthController extends Controller
      */
     public function login(Request $req){
         $credentials = $req->validate([
-            'email' => 'required|unique|email', 
+            'email' => 'required|email', 
             'password'=> 'required'
-        ]);        
-
-        $credentials['password'] = cryptPass($credentials['password']);
-
-        if(!$credentials) return response()->json($this->m->setMessage('error','invalid_credentials', 400), 401);
-
-        $token = JWTAuth::attempt($credentials);
+        ]);
+                
+        if(!$credentials) return response()->json($this->m->setMessage('error','credentials_not_exists', 400), 401);
+        
+        $token = AuthJWT::attempt($credentials);
+        
         if(!$token) return response()->json($this->m->setMessage('error','unauthorized', 401), 401);
 
         return $this->returnToken($token);
-        
+    }
+
+
+    public function logout(Request $req){
+        AuthJWT::logout();
+        return response()->json($this->m->setMessage('success', 'logout_success', 200), 200);
     }
 
     public function returnToken($token){
         return response()->json([
             'access_token'=> $token,
             'token_type' => 'Bearer',
-            'expires_in' => JWTAuth::factory()->setTTlL($token)
+            'expires_in' => Carbon::now()->addHours(2)->timestamp
         ]);
     }
 }

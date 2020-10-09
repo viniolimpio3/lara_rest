@@ -22,7 +22,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index(Request $req){
         return $this->users->paginate(10);
     }
 
@@ -60,9 +60,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+        try{
+            if(!isset($id)) throw new Exception('User ID não informado');    
+            return response()->json($this->users->find($id));
+
+        }catch(Exception $e){
+            return response()->json($this->m->setMessage('error', $e->getMessage(), 400), 400);
+        }
     }
 
     /**

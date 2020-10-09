@@ -19,29 +19,26 @@ class Authenticate extends BaseMiddleware
      */    
     protected function redirectTo($request){
         if (! $request->expectsJson()) {
-            return route('api.login_auth');
+            return route('NAME_ROTA_LOGIN');
         }
     }
 
-    /**
-    * Handle an incoming request.
-    * @param  \Illuminate\Http\Request  $req
-    * @param  \Closure  $next
-    * @return mixed
-    */
+    // /**
+    // * Handle an incoming request.
+    // * @param  \Illuminate\Http\Request  $req
+    // * @param  \Closure  $next
+    // * @return mixed
+    // */
 
-    protected function handle(Request $req, Closure $next){
-        try{
-            $user = JWTAuth::parseToken()->authenticate();
-        }catch(Exception $e){
-            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) 
-                return response()->json(['status' => 'Token is Invalid']);
-            else  if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) 
-                return response()->json(['status' => 'Token is Expired']);
-            else 
-                return response()->json(['status' => 'Authorization Token not found']);
-
-            $next($req);           
-        }
-    }
+    // public function handle(Request $req, Closure $next){
+    //     try{
+    //         $user = JWTAuth::parseToken()->authenticate();
+    //     }catch(Exception $e){
+    //         if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) return response()->json(['status' => 'Token is Invalid']);
+    //         else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) return response()->json(['status' => 'Token is Expired']);
+    //         else return response()->json(['status' => 'Authorization Token not found']);
+    //     }
+        
+    //     return $next($req);           
+    // }
 }
