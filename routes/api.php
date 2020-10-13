@@ -33,7 +33,6 @@ Route::namespace($namespace_controller)->name('api.')->group(function(){
 
     //LOGIN -------------------
     Route::post('/auth/login', [AuthController::class, 'login'])->name('login_auth');//return token      
-    //------------------------
 
     //produtos ---------------------------------------------------------
     Route::prefix('/products')->group(function(){//RECURSO
