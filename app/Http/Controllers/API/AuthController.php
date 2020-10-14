@@ -10,10 +10,11 @@ use Illuminate\Http\JsonResponse;
 use App\API\ApiMessage;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Contracts\Providers\Auth as ProvidersAuth;
 use Tymon\JWTAuth\Facades\JWTAuth as AuthJWT;
-
 
 class AuthController extends Controller
 {
@@ -24,9 +25,8 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct(){
-        $this->middleware('auth:api',['except' => 'login']);
+        // $this->middleware('jwt_middleware',['except' => 'login']);//usa o middleware em todos métodos, menos no login - [OBSOLETO] -> USAR MIDDLEWARE NAS ROTAS
         $this->m = new ApiMessage();
-    
     }
  
     /**
@@ -48,10 +48,17 @@ class AuthController extends Controller
         return $this->returnToken($token);
     }
 
+    public function me(Request $req){
+        return response()->json(['user' => getAuthorizedUser()]);
+    }
 
     public function logout(Request $req){
-        AuthJWT::logout();
-        return response()->json($this->m->setMessage('success', 'logout_success', 200), 200);
+        try{
+            Auth::logout();
+            return response()->json($this->m->setMessage('success', 'logout_success', 200), 200);
+        }catch(Exception $e){
+            return response()->json($this->m->setMessage('error', $e->getMessage(), 400), 400);
+        }
     }
 
     public function returnToken($token){

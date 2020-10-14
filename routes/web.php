@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AD_UserController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Web\WB_ProductController;
 use App\Http\Controllers\Web\WB_UserController;
@@ -17,17 +18,20 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function(){
-    return view('welcome');
+    $data['teste'] = 'Data';
+    return view('admin/dashboard', $data);
 });
+
+
 
 Route::prefix('/user')->name('web.user.')->group(function(){
 
-   Route::get('/signin', [WB_UserController::class, 'login'])->name('signin');
-
-   Route::get('/signup', [WB_UserController::class, 'create'])->name('signup');
+    Route::get('/', [AD_UserController::class, 'index'])->name('index');
 
 });
 
 Route::prefix('/products')->name('web.product.')->group(function(){
+
     Route::get('/', [WB_ProductController::class, 'index'])->name('list');
+
 });

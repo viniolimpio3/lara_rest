@@ -9,7 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
-class Authenticate extends BaseMiddleware
+class Authenticate extends BaseMiddleware // SE QUISER USAR - MIDDLEWARE 'auth'
 {
     /**
      * Get the path the user should be redirected to when they are not authenticated.
@@ -18,27 +18,12 @@ class Authenticate extends BaseMiddleware
      * @return string|null
      */    
     protected function redirectTo($request){
+        return response()->json($request);
+
         if (! $request->expectsJson()) {
             return route('NAME_ROTA_LOGIN');
         }
     }
 
-    // /**
-    // * Handle an incoming request.
-    // * @param  \Illuminate\Http\Request  $req
-    // * @param  \Closure  $next
-    // * @return mixed
-    // */
 
-    // public function handle(Request $req, Closure $next){
-    //     try{
-    //         $user = JWTAuth::parseToken()->authenticate();
-    //     }catch(Exception $e){
-    //         if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) return response()->json(['status' => 'Token is Invalid']);
-    //         else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) return response()->json(['status' => 'Token is Expired']);
-    //         else return response()->json(['status' => 'Authorization Token not found']);
-    //     }
-        
-    //     return $next($req);           
-    // }
 }

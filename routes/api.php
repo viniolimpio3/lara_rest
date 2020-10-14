@@ -16,7 +16,9 @@ Route::namespace($namespace_controller)->name('api.')->group(function(){
     //Routes Auth - req passa pelo middleware 'Authenticate'  ------------------------------------------------
     Route::middleware('jwt_middleware')->prefix('/auth')->group(function(){
 
+        
         Route::prefix('/users')->group(function(){
+            Route::get('/me', [AuthController::class, 'me'])->name('me');
             Route::get('/', [UserController::class, 'index'])->name('admin_get_users');
             Route::get('/{id}', [UserController::class, 'show'])->name('id_user');
         });
@@ -25,11 +27,11 @@ Route::namespace($namespace_controller)->name('api.')->group(function(){
             Route::post('/', [ProductController::class , 'store'])->name('store_product');
             Route::put('/{id}',  [ProductController::class , 'update'])->name('update_product');
             Route::delete('/{id}',  [ProductController::class , 'delete'])->name('delete_product');
-        });
+        }); 
 
-        Route::delete('/', [AuthController::class, 'logout'])->name('logout_token');//invalida token
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout_token');//invalida token
 
-    }); 
+    });
 
     //LOGIN -------------------
     Route::post('/auth/login', [AuthController::class, 'login'])->name('login_auth');//return token      

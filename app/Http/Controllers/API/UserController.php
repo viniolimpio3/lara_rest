@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -69,6 +70,7 @@ class UserController extends Controller
             return response()->json($this->m->setMessage('error', $e->getMessage(), 400), 400);
         }
     }
+
 
     /**
      * Update the specified resource in storage.
