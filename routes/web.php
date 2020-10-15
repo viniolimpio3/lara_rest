@@ -23,11 +23,10 @@ Route::get('/', function(){
 });
 
 
-
-Route::prefix('/user')->name('web.user.')->group(function(){
+Route::prefix('/admin')->name('web.admin.')->group(function(){
 
     Route::get('/', [AD_UserController::class, 'index'])->name('index');
-
+    
 });
 
 Route::prefix('/products')->name('web.product.')->group(function(){
