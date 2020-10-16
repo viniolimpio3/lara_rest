@@ -34,7 +34,8 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "process-timeout": 0
     },
     "extra": {
         "laravel": {
@@ -59,6 +60,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+
+        "sass":"sass --watch resources/sass/web.scss:resources/css/web.css resources/sass/admin.scss:resources/css/admin.css",
+
         "down-db":"php artisan db:wipe && php artisan migrate && php artisan db:seed",
 
         "post-autoload-dump": [

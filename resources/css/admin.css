@@ -1,0 +1,9 @@
+.jumbotron {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  background-color: #222;
+  color: #fff;
+}
+
+/*# sourceMappingURL=admin.css.map */

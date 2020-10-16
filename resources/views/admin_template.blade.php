@@ -1,6 +1,9 @@
-<div class="container mt-4">
+@isset($pathCss)
+    <link rel="stylesheet" href="{{asset("css/$pathCss")}}">
+@endisset
+<div class="container mt-5">
     <div class="jumbotron">
-        ADMIN - TEMPLATE
         @include($module)
     </div>
 </div>
+

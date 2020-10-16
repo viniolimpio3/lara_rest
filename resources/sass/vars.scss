@@ -1,0 +1,10 @@
+@charset 'UTF-8';
+$black: #222;
+$white: #fff;
+$family: 'Ubuntu';
+
+@mixin flexCenter($direction) {
+    display: flex;
+    flex-direction: $direction;
+    place-content: center;
+}

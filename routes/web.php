@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AD_UserController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Web\WB_ProductController;
+use App\Http\Controllers\Web\WB_SiteController;
 use App\Http\Controllers\Web\WB_UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -17,10 +18,7 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 */
 
-Route::get('/', function(){
-    $data['teste'] = 'Data';
-    return view('admin/dashboard', $data);
-});
+Route::get('/', [WB_SiteController::class, 'index']);
 
 
 Route::prefix('/admin')->name('web.admin.')->group(function(){
